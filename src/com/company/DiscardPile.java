@@ -14,11 +14,8 @@ public class DiscardPile {
      * Constructor for DiscardPile class.
      */
     public DiscardPile(){
-
         play = new ArrayList<>();
         play.add(Deck.drawCard());
-
-
     }
 
     /**

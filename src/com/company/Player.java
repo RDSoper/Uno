@@ -46,7 +46,10 @@ public class Player {
         }
     }
 
-
+    /**
+     * Shows the player their hand and asks them which card they want to play. If that cards colour or value matches
+     * the top card of the discard pile, it adds it to the top. If not, it prompts the player for another card.
+     */
     public void playCard() {
         showHand();
         Scanner sc = new Scanner(System.in);
@@ -71,23 +74,25 @@ public class Player {
         //Checks the hand for matches amongst the color or value fields.
         boolean validPlay = false;
         for (Card card : hand) {
-            if (card.getValue() == play.get(play.size() - 1).getValue() ||
-                    card.getColor().equals(play.get(play.size() - 1).getColor())) {
+            if (card.getValue() == play.get(play.size()-1).getValue() ||
+                    card.getColor().equals(play.get(play.size()-1).getColor())) {
                 validPlay = true;
                 break;
             }
         }
-        //If there are no matches, the player has no cards they can play. PLayer draws a card, then if it matches the
-        //top of the discard pile asked to play it.
+        //If there are no matches, the player has no cards they can play. Player draws a card and then begins game
+        // resumes.
         if (!validPlay) {
             System.out.println("\nYou are out of valid plays. Draw a card!");
             hand.add(drawCard());
         }
     }
 
+    public void test(){
 
+    }
     /**
-     * Checks if the players hand size is 0, if it is, it means they have no cards and have won.
+     * Controls game flow, gives player a choice and acts according to that choice.
      */
     public void beginGame() {
 
@@ -101,27 +106,24 @@ public class Player {
                 """);
             String decision = sc.nextLine();
             switch (decision) {
-                case ("q"): {
-                    flag = true;
-                    break;
-                }
-                case ("s"):
+                //Player skips turn, sets flag to true to break out of while loop.
+                case ("q") ->  flag = true;
+                //Shows players hand, and gives top card of the discard pile.
+                case ("s") -> {
                     System.out.println("Your hand is currently ");
                     showHand();
                     System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
-                    break;
-                case ("p"):
+                }
+                case ("p") -> {
                     try {
                         System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
                         playCard();
                         flag = true;
-                        break;
                     } catch (InputMismatchException e) {
                         System.out.println("Numbers only as the allowed input");
-                        break;
                     }
-                default:
-                    System.out.println("Command not recognised.");
+                }
+                default -> System.out.println("Command not recognised.");
             }
         }
     }

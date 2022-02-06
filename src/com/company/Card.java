@@ -22,6 +22,7 @@ public class Card {
     public int getValue(){
         return value;
     }
+
     /**
      * Get cards color.
      * @return color - a String.

@@ -10,6 +10,9 @@ public class Game {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Begins a two player game of uno.
+     */
     public void beginTwoPlayerGame() {
         Player one = new Player();
         Player two = new Player();
@@ -32,6 +35,10 @@ public class Game {
             }
         }
     }
+
+    /**
+     * Begins a three player game of uno.
+     */
     public void beginThreePlayerGame() {
         Player one = new Player();
         Player two = new Player();
@@ -62,6 +69,10 @@ public class Game {
             }
         }
     }
+
+    /**
+     * Begins a three player game of uno.
+     */
     public void beginFourPlayerGame() {
         Player one = new Player();
         Player two = new Player();
@@ -101,6 +112,9 @@ public class Game {
         }
     }
 
+    /**
+     * Begins the right game according to the number of players.
+     */
     public void numberOfPlayers(){
         System.out.println("How many players are playing uno? Minimum of two, maximum of four.");
         int choice = 0;
