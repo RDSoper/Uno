@@ -6,6 +6,7 @@ public class Card {
      */
     int value;
     String color;
+    String special;
 
     /**
      *  Constructor for Card class.
@@ -13,6 +14,11 @@ public class Card {
     public Card(int aValue, String aColor){
         this.value = aValue;
         this.color = aColor;
+    }
+
+    public Card (String aColour, String aSpecial){
+        this.color = aColour;
+        this.special = aSpecial;
     }
 
     /**

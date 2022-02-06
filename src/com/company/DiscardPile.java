@@ -23,7 +23,7 @@ public class DiscardPile {
      * @return A string detailing the value and color of the top card of the discard pile.
      */
     public static String showTopCard(){
-        return play.get(play.size()-1).getColor() + " " + play.get(play.size()-1).getValue();
+        return "\nThe top card is "+play.get(play.size()-1).getColor()+" "+play.get(play.size()-1).getValue()+"\n";
     }
 
     /**
