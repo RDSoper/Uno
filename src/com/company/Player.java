@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.company.Deck.drawCard;
 import static com.company.DiscardPile.*;
@@ -14,6 +12,8 @@ public class Player {
      */
     ArrayList<Card> hand;
     Scanner sc;
+    ArrayList<String> controls;
+
 
     /**
      * Constructor for Player class.
@@ -22,9 +22,13 @@ public class Player {
     public Player() {
         this.sc = new Scanner(System.in);
         this.hand = new ArrayList<>();
-        while (hand.size() != 7) {
+        this.controls = new ArrayList<>();
+        while (hand.size() != 1) {
             draw();
         }
+        controls.add("s");
+        controls.add("p");
+        controls.add("q");
     }
 
     /**
@@ -55,11 +59,10 @@ public class Player {
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose the number corresponding to the card you want to play.");
         int i = sc.nextInt();
-        Card temp = hand.get(i - 1);
+        Card temp = hand.get(i-1);
         if (DiscardPile.getValue() == temp.getValue() || DiscardPile.getColor().equals(temp.getColor())) {
             play.add(temp);
-            hand.remove(i - 1);
-            System.out.println("The top card is now " + DiscardPile.showTopCard());
+            hand.remove(i-1);
         } else {
             System.out.println("That card doesn't match the card in the play area, please choose again.");
         }
@@ -88,44 +91,46 @@ public class Player {
         }
     }
 
-    public void test(){
-
-    }
     /**
      * Controls game flow, gives player a choice and acts according to that choice.
      */
-    public void beginGame() {
+    public String makeChoice() {
 
-        boolean flag = false;
-        while (!flag) {
+        String decision = "";
+        while (!controls.contains(decision)) {
             System.out.println("""
                 Controls:
                 s: see your hand.
                 p: play a card.
                 q: skip turn.
                 """);
-            String decision = sc.nextLine();
-            switch (decision) {
-                //Player skips turn, sets flag to true to break out of while loop.
-                case ("q") ->  flag = true;
-                //Shows players hand, and gives top card of the discard pile.
-                case ("s") -> {
-                    System.out.println("Your hand is currently ");
-                    showHand();
-                    System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
-                }
-                case ("p") -> {
-                    try {
-                        System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
-                        playCard();
-                        flag = true;
-                    } catch (InputMismatchException e) {
-                        System.out.println("Numbers only as the allowed input");
-                    }
-                }
-                default -> System.out.println("Command not recognised.");
+
+            decision = sc.nextLine();
+            if(!controls.contains(decision)){
+                System.out.println("Please enter a valid choice.");
             }
         }
+        /**switch (decision) {
+            //Player skips turn, sets flag to true to break out of while loop.
+            case ("q") -> flag = true;
+            //Shows players hand, and gives top card of the discard pile.
+            case ("s") -> {
+                System.out.println("Your hand is currently ");
+                showHand();
+                System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
+            }
+            case ("p") -> {
+                try {
+                    System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
+                    playCard();
+                    flag = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Numbers only as the allowed input");
+                }
+            }
+            default -> System.out.println("Command not recognised.");
+        }**/
+        return decision;
     }
 }
 
