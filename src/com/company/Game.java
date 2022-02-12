@@ -7,10 +7,15 @@ import java.util.Scanner;
 public class Game {
     Scanner sc;
     static ArrayList<Player> player;
+    static DiscardPile discardPile;
+    static Deck deck;
 
     public Game() {
         this.sc = new Scanner(System.in);
+        deck = new Deck();
         player = new ArrayList<>();
+        discardPile = new DiscardPile();
+
     }
 
     public Player getPlayer(int i){
@@ -22,8 +27,8 @@ public class Game {
         int players;
         players = sc.nextInt();
         for(int i =0; i<players;i++ ){
-            player.add(new Player());
-            System.out.println("Player "+(i+1)+" added.");
+            player.add(new Player(i));
+            System.out.println("Player "+(player.get(i).getPlayerNumber())+" added.");
         }
     }
 
@@ -32,7 +37,7 @@ public class Game {
         boolean flag = false;
         while (!flag) {
             for (int i = 0; i < Game.player.size(); i++) {
-                System.out.println("\nPlayer "+(i+1)+"'s turn");
+                System.out.println("\nPlayer "+(player.get(i).getPlayerNumber())+"'s turn");
                 getPlayer(i).checkHandForValidPlays();
                 boolean flags = false;
                 while (!flags) {
@@ -58,7 +63,7 @@ public class Game {
                     }
                 }
                 if (getPlayer(i).getHandSize() == 0) {
-                    System.out.println("Player " + (i + 1) + " wins!");
+                    System.out.println("Player " + (player.get(i).getPlayerNumber()) + " wins!");
                     flag = true;
                 }
             }
