@@ -13,17 +13,18 @@ public class Player {
     ArrayList<Card> hand;
     Scanner sc;
     ArrayList<String> controls;
-
+    int number;
 
     /**
      * Constructor for Player class.
      * Creates empty ArrayList of type Card and then draws 7 cards from the Deck class.
      */
-    public Player() {
+    public Player(int playerNumber) {
+        this.number = playerNumber+1;
         this.sc = new Scanner(System.in);
         this.hand = new ArrayList<>();
         this.controls = new ArrayList<>();
-        while (hand.size() != 1) {
+        while (hand.size() != 7) {
             draw();
         }
         controls.add("s");
@@ -45,9 +46,18 @@ public class Player {
     public void showHand() {
         int i = 0;
         for (Card card : hand) {
-            System.out.print(i + 1 + ": " + card.getColor() + " " + card.getValue() + "\n");
-            i++;
+            if(card.getSpecial()==null) {
+                System.out.print(i + 1 + ": " + card.getColor() + " " + card.getValue() + "\n");
+                i++;
+            }else{
+                System.out.print(i + 1 + ": " + card.getColor() + " " + card.getSpecial() +"\n");
+                i++;
+            }
         }
+    }
+
+    public int getPlayerNumber(){
+        return number;
     }
 
     /**
@@ -70,15 +80,16 @@ public class Player {
 
     /**
      * Checks the cards in the players hand against the top card of the discard pile. If there are no matches amongst
-     * the value or color fields will force the player to draw a card, and play it if they can. Otherwise, does nothing
-     * as the player has at least one card they can play.
+     * the value or color fields and the card isn't a special type, will force the player to draw a card. Otherwise,
+     * does nothing as the player has at least one card they can play.
      */
     public void checkHandForValidPlays() {
         //Checks the hand for matches amongst the color or value fields.
         boolean validPlay = false;
         for (Card card : hand) {
-            if (card.getValue() == play.get(play.size()-1).getValue() ||
-                    card.getColor().equals(play.get(play.size()-1).getColor())) {
+            if (card.getValue() == play.get(play.size()-1).getValue()||
+                card.getColor().equals(play.get(play.size()-1).getColor())||
+                !(card.getSpecial()==null)){
                 validPlay = true;
                 break;
             }
@@ -110,26 +121,6 @@ public class Player {
                 System.out.println("Please enter a valid choice.");
             }
         }
-        /**switch (decision) {
-            //Player skips turn, sets flag to true to break out of while loop.
-            case ("q") -> flag = true;
-            //Shows players hand, and gives top card of the discard pile.
-            case ("s") -> {
-                System.out.println("Your hand is currently ");
-                showHand();
-                System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
-            }
-            case ("p") -> {
-                try {
-                    System.out.print("\nThe top card is " + DiscardPile.showTopCard() + "\n");
-                    playCard();
-                    flag = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("Numbers only as the allowed input");
-                }
-            }
-            default -> System.out.println("Command not recognised.");
-        }**/
         return decision;
     }
 }
