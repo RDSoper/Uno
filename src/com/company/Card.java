@@ -18,7 +18,7 @@ public class Card {
         this.special = null;
     }
 
-    public Card(int aValue,String aColor, String aSpecial){
+    public Card(int aValue, String aColor, String aSpecial){
         this.value = aValue;
         this.color = aColor;
         this.special = aSpecial;
@@ -47,5 +47,7 @@ public class Card {
     public String getSpecial(){
         return special;
     }
+
+
 }
 

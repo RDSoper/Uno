@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -31,20 +32,35 @@ public class Game {
             System.out.println("Player "+(player.get(i).getPlayerNumber())+" added.");
         }
     }
+    public void reverseTurn(){
 
+        System.out.println("\nTurn order reversed.");
+        Collections.reverse(Game.player);
+        /*
+        Player temp;
+        int j = Game.player.size();
+        for(int i = 0; i< Game.player.size()/2; i++) {
+            temp = Game.player.get(i);
+            Game.player.add(i, Game.player.get(j - i - 1));
+            Game.player.remove(i + 1);
+            Game.player.add(j - i - 1, temp);
+            Game.player.remove(j - i);
+        }*/
+
+    }
     public void playGame() {
         numberOfPlayers();
         boolean flag = false;
         while (!flag) {
             for (int i = 0; i < Game.player.size(); i++) {
-                System.out.println("\nPlayer "+(player.get(i).getPlayerNumber())+"'s turn");
+                System.out.println("\nPlayer " + (player.get(i).getPlayerNumber()) + "'s turn");
                 getPlayer(i).checkHandForValidPlays();
                 boolean flags = false;
                 while (!flags) {
                     switch (getPlayer(i).makeChoice()) {
                         case ("q") -> {
-                        System.out.println("Turn Skipped");
-                        flags = true;
+                            System.out.println("Turn Skipped");
+                            flags = true;
                         }
                         case ("s") -> {
                             getPlayer(i).showHand();

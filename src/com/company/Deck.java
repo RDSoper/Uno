@@ -16,8 +16,7 @@ public class Deck{
 
         deck = new ArrayList<>();
 
-        generateDeck("Yellow");
-        generateDeck("Blue");
+        generateDeck("Yellow");generateDeck("Blue");
         generateDeck("Red");
         generateDeck("Green");
         generateDeck("Yellow");
@@ -28,7 +27,6 @@ public class Deck{
         generateDeckSpecial("blue");
         generateDeckSpecial("red");
         generateDeckSpecial("green");
-
 
         shuffle();
     }
@@ -43,12 +41,13 @@ public class Deck{
     }
     private void generateDeckSpecial(String aColor){
         for(int i=0; i<2; i++){
-            deck.add(new Card(10,aColor, "Draw Two"));
-            deck.add(new Card(11,aColor, "Skip Turn"));
+           // deck.add(new Card(10,aColor, "Draw Two"));
+           // deck.add(new Card(11,aColor, "Skip Turn"));
             deck.add(new Card(12,aColor, "Reverse Order"));
 
         }
     }
+
 
     public void shuffle(){
         Collections.shuffle(deck);

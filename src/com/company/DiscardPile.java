@@ -56,5 +56,13 @@ public class DiscardPile {
     public static String getColor(){
         return play.get(play.size()-1).getColor();
     }
+
+    /**
+     * Gets the color.
+     * @return color - the colour of the top card of the discard pile.
+     */
+    public String getSpecial(){
+        return play.get(play.size()-1).getSpecial();
+    }
 }
 
